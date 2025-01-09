@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Management</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                color: #333;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+    
+            #videoBackground {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: -1;
+            }
+    
+            h1, h2 {
+                text-align: center;
+                margin: 20px 0;
+                color: #fff;
+                text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            }
+    
+            form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 20px;
+                padding: 20px;
+                background: rgba(255, 255, 255, 0.9);
+                border-radius: 10px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                z-index: 1;
+            }
+    
+            form label {
+                margin: 10px 0 5px;
+                font-size: 1.1em;
+            }
+    
+            form input, form button {
+                width: 100%;
+                max-width: 300px;
+                margin: 5px 0;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 1em;
+            }
+    
+            form button {
+                background: #4caf50;
+                color: white;
+                border: none;
+                cursor: pointer;
+                transition: background 0.3s;
+            }
+    
+            form button:hover {
+                background: #45a049;
+            }
+    
+            ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 20px auto;
+                max-width: 600px;
+                background: rgba(255, 255, 255, 0.9);
+                border-radius: 10px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            }
+    
+            ul li {
+                padding: 10px;
+                border-bottom: 1px solid #ddd;
+            }
+    
+            ul li:last-child {
+                border-bottom: none;
+            }
+    
+            ul li a {
+                text-decoration: none;
+                color: #007bff;
+                transition: color 0.3s;
+            }
+    
+            ul li a:hover {
+                color: #0056b3;
+            }
+    
+            @media (max-width: 768px) {
+                form, ul {
+                    margin: 10px;
+                    padding: 15px;
+                }
+    
+                form input, form button {
+                    max-width: 100%;
+                }
+            }
+        </style>
+    <script>
+        async function fetchFiles() {
+            const response = await fetch('/files');
+            const files = await response.json();
+            const fileList = document.getElementById('fileList');
+
+            fileList.innerHTML = '';
+            files.forEach(file => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<a href="/view-file/${file._id}">${file.name}</a>`;
+                fileList.appendChild(listItem);
+            });
+        }
+
+        window.onload = fetchFiles;
+    </script>
+</head>
+<body>
+    <video id="videoBackground" autoplay loop muted>
+        <source src="https://i.makeagif.com/media/12-27-2015/lv0Mb9.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <h1>File Management</h1>
+
+    <h2>Upload a File</h2>
+    <form id="uploadForm" enctype="multipart/form-data" method="post" action="/upload">
+        <label for="fileInput">Choose a file:</label>
+        <input type="file" id="fileInput" name="file">
+        <label for="fileSem">Enter semester:</label>
+        <input type="number" id="fileSem" name="sem">
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>Existing Files</h2>
+    <ul id="fileList"></ul>
+</body>
+</html>
