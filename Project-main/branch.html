@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Branch</title>
+    <style>
+        /* Global styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex-direction: column; /* Stack items vertically */
+    height: 100vh; /* Full viewport height */
+    background: linear-gradient(135deg, #340383, #36c060); /* Gradient background */
+    color: #333; /* Default text color */
+    text-align: center; /* Center-align text */
+}
+
+/* Heading styling */
+h1 {
+    font-family: fantasy;
+    text-shadow: 2px 2px #000000;
+    font-size: 2.5rem; /* Large font size */
+    margin-bottom: 20px; /* Space below heading */
+    color: #fff; /* White text for contrast */
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3); /* Subtle glow effect */
+}
+
+/* Container for branch options */
+.container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 10px; /* Space between items */
+
+}
+
+/* Branch links */
+.container h3 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1.5rem; /* Font size for branch names */
+    color: #0044cc; /* Blue text color */
+    text-decoration: underline; /* Underlined text */
+    cursor: pointer; /* Pointer cursor to indicate clickability */
+    transition: color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+/* Hover effect for branch links */
+.container h3:hover {
+    color: #ff6600; /* Change color on hover */
+    transform: scale(1.2); /* Slight zoom effect on hover */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2rem; /* Adjust heading size for smaller screens */
+    }
+
+    .container h3 {
+        font-size: 1.2rem; /* Adjust branch link size for smaller screens */
+    }
+}
+
+        .container h3 {
+            cursor: pointer;
+            color: blue;
+            text-decoration:none ;
+        }
+    </style>
+  <script> 
+    const currentURL = new URL(window.location.href);
+    const regulation = currentURL.pathname.split('/')[1]; 
+    function goToPage(branch) {  
+        window.location.href = `/${regulation}/branch/${branch}`; 
+    } 
+  </script>
+</head>
+<body>
+    <h1>Select your Branch</h1>
+    <div class="container">
+        <h3 onclick="goToPage('CSD')">CSD</h3>
+        <h3 onclick="goToPage('CSM')">CSM</h3>
+        <h3 onclick="goToPage('CIC')">CIC</h3>
+    </div>
+</body>
+</html>
